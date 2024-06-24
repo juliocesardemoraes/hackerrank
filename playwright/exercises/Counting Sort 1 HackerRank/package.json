@@ -1,0 +1,12 @@
+{
+  "name": "diagonal-difference-hackerrank",
+  "version": "1.0.0",
+  "description": "Exercise",
+  "main": "index.js",
+  "scripts": {
+    "start": "tsx --watch ./index.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
