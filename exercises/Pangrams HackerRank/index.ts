@@ -24,13 +24,13 @@ function readLine(): string {
 }
 
 /*
- * Complete the 'countingSort' function below.
+ * Complete the 'pangrams' function below.
  *
- * The function is expected to return an INTEGER_ARRAY.
- * The function accepts INTEGER_ARRAY arr as parameter.
+ * The function is expected to return a STRING.
+ * The function accepts STRING s as parameter.
  */
 
-function countingSort(arr: number[]): number[] {
+function pangrams(s: string): string {
     // Write your code here
 
 }
@@ -38,13 +38,11 @@ function countingSort(arr: number[]): number[] {
 function main() {
     const ws: WriteStream = createWriteStream(process.env['OUTPUT_PATH']);
 
-    const n: number = parseInt(readLine().trim(), 10);
+    const s: string = readLine();
 
-    const arr: number[] = readLine().replace(/\s+$/g, '').split(' ').map(arrTemp => parseInt(arrTemp, 10));
+    const result: string = pangrams(s);
 
-    const result: number[] = countingSort(arr);
-
-    ws.write(result.join(' ') + '\n');
+    ws.write(result + '\n');
 
     ws.end();
 }

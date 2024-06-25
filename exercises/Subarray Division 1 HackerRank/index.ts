@@ -24,13 +24,16 @@ function readLine(): string {
 }
 
 /*
- * Complete the 'countingSort' function below.
+ * Complete the 'birthday' function below.
  *
- * The function is expected to return an INTEGER_ARRAY.
- * The function accepts INTEGER_ARRAY arr as parameter.
+ * The function is expected to return an INTEGER.
+ * The function accepts following parameters:
+ *  1. INTEGER_ARRAY s
+ *  2. INTEGER d
+ *  3. INTEGER m
  */
 
-function countingSort(arr: number[]): number[] {
+function birthday(s: number[], d: number, m: number): number {
     // Write your code here
 
 }
@@ -40,11 +43,17 @@ function main() {
 
     const n: number = parseInt(readLine().trim(), 10);
 
-    const arr: number[] = readLine().replace(/\s+$/g, '').split(' ').map(arrTemp => parseInt(arrTemp, 10));
+    const s: number[] = readLine().replace(/\s+$/g, '').split(' ').map(sTemp => parseInt(sTemp, 10));
 
-    const result: number[] = countingSort(arr);
+    const firstMultipleInput: string[] = readLine().replace(/\s+$/g, '').split(' ');
 
-    ws.write(result.join(' ') + '\n');
+    const d: number = parseInt(firstMultipleInput[0], 10);
+
+    const m: number = parseInt(firstMultipleInput[1], 10);
+
+    const result: number = birthday(s, d, m);
+
+    ws.write(result + '\n');
 
     ws.end();
 }

@@ -24,13 +24,13 @@ function readLine(): string {
 }
 
 /*
- * Complete the 'countingSort' function below.
+ * Complete the 'flippingBits' function below.
  *
- * The function is expected to return an INTEGER_ARRAY.
- * The function accepts INTEGER_ARRAY arr as parameter.
+ * The function is expected to return a LONG_INTEGER.
+ * The function accepts LONG_INTEGER n as parameter.
  */
 
-function countingSort(arr: number[]): number[] {
+function flippingBits(n: number): number {
     // Write your code here
 
 }
@@ -38,13 +38,15 @@ function countingSort(arr: number[]): number[] {
 function main() {
     const ws: WriteStream = createWriteStream(process.env['OUTPUT_PATH']);
 
-    const n: number = parseInt(readLine().trim(), 10);
+    const q: number = parseInt(readLine().trim(), 10);
 
-    const arr: number[] = readLine().replace(/\s+$/g, '').split(' ').map(arrTemp => parseInt(arrTemp, 10));
+    for (let qItr: number = 0; qItr < q; qItr++) {
+        const n: number = parseInt(readLine().trim(), 10);
 
-    const result: number[] = countingSort(arr);
+        const result: number = flippingBits(n);
 
-    ws.write(result.join(' ') + '\n');
+        ws.write(result + '\n');
+    }
 
     ws.end();
 }

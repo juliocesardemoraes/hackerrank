@@ -1,6 +1,5 @@
 'use strict';
 
-import { WriteStream, createWriteStream } from "fs";
 process.stdin.resume();
 process.stdin.setEncoding('utf-8');
 
@@ -24,27 +23,19 @@ function readLine(): string {
 }
 
 /*
- * Complete the 'countingSort' function below.
+ * Complete the 'miniMaxSum' function below.
  *
- * The function is expected to return an INTEGER_ARRAY.
  * The function accepts INTEGER_ARRAY arr as parameter.
  */
 
-function countingSort(arr: number[]): number[] {
+function miniMaxSum(arr: number[]): void {
     // Write your code here
 
 }
 
 function main() {
-    const ws: WriteStream = createWriteStream(process.env['OUTPUT_PATH']);
-
-    const n: number = parseInt(readLine().trim(), 10);
 
     const arr: number[] = readLine().replace(/\s+$/g, '').split(' ').map(arrTemp => parseInt(arrTemp, 10));
 
-    const result: number[] = countingSort(arr);
-
-    ws.write(result.join(' ') + '\n');
-
-    ws.end();
+    miniMaxSum(arr);
 }

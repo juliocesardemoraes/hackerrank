@@ -1,3 +1,28 @@
+'use strict';
+
+import { WriteStream, createWriteStream } from "fs";
+process.stdin.resume();
+process.stdin.setEncoding('utf-8');
+
+let inputString: string = '';
+let inputLines: string[] = [];
+let currentLine: number = 0;
+
+process.stdin.on('data', function(inputStdin: string): void {
+    inputString += inputStdin;
+});
+
+process.stdin.on('end', function(): void {
+    inputLines = inputString.split('\n');
+    inputString = '';
+
+    main();
+});
+
+function readLine(): string {
+    return inputLines[currentLine++];
+}
+
 /*
  * Complete the 'diagonalDifference' function below.
  *
@@ -6,34 +31,24 @@
  */
 
 function diagonalDifference(arr: number[][]): number {
-  const arrValues = {
-    leftDiagonal: 0,
-    rightDiagonal: 0,
-  };
-  let leftPos = 0;
+    // Write your code here
 
-  const rightPos: { x: number; y: number } = {
-    x: 0,
-    y: arr[0].length - 1,
-  };
-
-  for (let i = 0; i < arr[0].length; i++) {
-    if (arr[leftPos][leftPos]) {
-      arrValues.leftDiagonal += arr[leftPos][leftPos];
-      leftPos++;
-    }
-
-    if (arr[rightPos.x][rightPos.y]) {
-      arrValues.rightDiagonal += arr[rightPos.x][rightPos.y];
-      rightPos.x++;
-      rightPos.y--;
-    }
-  }
-  return Math.abs(arrValues.leftDiagonal - arrValues.rightDiagonal);
 }
 
-diagonalDifference([
-  [11, 2, 4],
-  [4, 5, 6],
-  [10, 8, -12],
-]);
+function main() {
+    const ws: WriteStream = createWriteStream(process.env['OUTPUT_PATH']);
+
+    const n: number = parseInt(readLine().trim(), 10);
+
+    let arr: number[][] = Array(n);
+
+    for (let i: number = 0; i < n; i++) {
+        arr[i] = readLine().replace(/\s+$/g, '').split(' ').map(arrTemp => parseInt(arrTemp, 10));
+    }
+
+    const result: number = diagonalDifference(arr);
+
+    ws.write(result + '\n');
+
+    ws.end();
+}
