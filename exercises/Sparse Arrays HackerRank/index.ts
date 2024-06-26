@@ -1,28 +1,3 @@
-'use strict';
-
-import { WriteStream, createWriteStream } from "fs";
-process.stdin.resume();
-process.stdin.setEncoding('utf-8');
-
-let inputString: string = '';
-let inputLines: string[] = [];
-let currentLine: number = 0;
-
-process.stdin.on('data', function(inputStdin: string): void {
-    inputString += inputStdin;
-});
-
-process.stdin.on('end', function(): void {
-    inputLines = inputString.split('\n');
-    inputString = '';
-
-    main();
-});
-
-function readLine(): string {
-    return inputLines[currentLine++];
-}
-
 /*
  * Complete the 'matchingStrings' function below.
  *
@@ -33,34 +8,14 @@ function readLine(): string {
  */
 
 function matchingStrings(strings: string[], queries: string[]): number[] {
-    // Write your code here
+  const repeatablePatterns = new Array(queries.length).fill(0);
 
+  for (let i = 0; i < strings.length; i++) {
+    for (let x = 0; x < queries.length; x++) {
+      if (strings[i] === queries[x]) repeatablePatterns[x] += 1;
+    }
+  }
+  return repeatablePatterns;
 }
 
-function main() {
-    const ws: WriteStream = createWriteStream(process.env['OUTPUT_PATH']);
-
-    const stringsCount: number = parseInt(readLine().trim(), 10);
-
-    let strings: string[] = [];
-
-    for (let i: number = 0; i < stringsCount; i++) {
-        const stringsItem: string = readLine();
-        strings.push(stringsItem);
-    }
-
-    const queriesCount: number = parseInt(readLine().trim(), 10);
-
-    let queries: string[] = [];
-
-    for (let i: number = 0; i < queriesCount; i++) {
-        const queriesItem: string = readLine();
-        queries.push(queriesItem);
-    }
-
-    const res: number[] = matchingStrings(strings, queries);
-
-    ws.write(res.join('\n') + '\n');
-
-    ws.end();
-}
+matchingStrings(["aba", "baba", "aba", "xzxb"], ["aba", "xzxb", "ab"]);
