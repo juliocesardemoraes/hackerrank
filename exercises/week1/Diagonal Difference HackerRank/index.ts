@@ -1,54 +1,36 @@
-'use strict';
-
-import { WriteStream, createWriteStream } from "fs";
-process.stdin.resume();
-process.stdin.setEncoding('utf-8');
-
-let inputString: string = '';
-let inputLines: string[] = [];
-let currentLine: number = 0;
-
-process.stdin.on('data', function(inputStdin: string): void {
-    inputString += inputStdin;
-});
-
-process.stdin.on('end', function(): void {
-    inputLines = inputString.split('\n');
-    inputString = '';
-
-    main();
-});
-
-function readLine(): string {
-    return inputLines[currentLine++];
-}
-
-/*
- * Complete the 'diagonalDifference' function below.
- *
- * The function is expected to return an INTEGER.
- * The function accepts 2D_INTEGER_ARRAY arr as parameter.
- */
-
 function diagonalDifference(arr: number[][]): number {
-    // Write your code here
+  // Write your code here
+  let rightSum = 0;
+  let leftSum = 0;
+  let leftPos = 0;
+  let rightPosX = 0;
+  let rightPosY = arr.length - 1;
 
+  for (let i = 0; i < arr.length; i++) {
+    // Sum values
+    rightSum += arr[rightPosX][rightPosY];
+    leftSum += arr[leftPos][leftPos];
+
+    // Update positions
+    leftPos++;
+    rightPosX++;
+    rightPosY--;
+  }
+  return Math.abs(rightSum - leftSum);
 }
 
-function main() {
-    const ws: WriteStream = createWriteStream(process.env['OUTPUT_PATH']);
+const array = [
+  [1, 2, 3],
+  [4, 5, 6],
+  [9, 8, 9],
+];
 
-    const n: number = parseInt(readLine().trim(), 10);
+// linha x coluna
 
-    let arr: number[][] = Array(n);
+// 0,0 1,1 2,2
 
-    for (let i: number = 0; i < n; i++) {
-        arr[i] = readLine().replace(/\s+$/g, '').split(' ').map(arrTemp => parseInt(arrTemp, 10));
-    }
+// 0,2 1,1 2,0
 
-    const result: number = diagonalDifference(arr);
+console.log(diagonalDifference(array));
 
-    ws.write(result + '\n');
-
-    ws.end();
-}
+// The left-to-right diagonal = . The right to left diagonal = . Their absolute difference is

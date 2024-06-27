@@ -1,28 +1,3 @@
-'use strict';
-
-import { WriteStream, createWriteStream } from "fs";
-process.stdin.resume();
-process.stdin.setEncoding('utf-8');
-
-let inputString: string = '';
-let inputLines: string[] = [];
-let currentLine: number = 0;
-
-process.stdin.on('data', function(inputStdin: string): void {
-    inputString += inputStdin;
-});
-
-process.stdin.on('end', function(): void {
-    inputLines = inputString.split('\n');
-    inputString = '';
-
-    main();
-});
-
-function readLine(): string {
-    return inputLines[currentLine++];
-}
-
 /*
  * Complete the 'twoArrays' function below.
  *
@@ -34,30 +9,26 @@ function readLine(): string {
  */
 
 function twoArrays(k: number, A: number[], B: number[]): string {
-    // Write your code here
+  // Write your code here
+  A = A.sort((a, b) => a - b);
+  B = B.sort((a, b) => a - b);
+  const sortedArrays =
+    A[A.length - 1] > B[B.length - 1]
+      ? { higher: A, lower: B }
+      : { higher: B, lower: A };
 
+  let backwardsPointer = sortedArrays.higher.length - 1;
+
+  for (let i = 0; i < A.length; i++) {
+    if (sortedArrays.higher[backwardsPointer] + sortedArrays.lower[i] < k)
+      return "NO";
+
+    backwardsPointer--;
+  }
+
+  return "YES";
 }
 
-function main() {
-    const ws: WriteStream = createWriteStream(process.env['OUTPUT_PATH']);
+console.log(twoArrays(10, [2, 1, 3], [7, 8, 9]));
 
-    const q: number = parseInt(readLine().trim(), 10);
-
-    for (let qItr: number = 0; qItr < q; qItr++) {
-        const firstMultipleInput: string[] = readLine().replace(/\s+$/g, '').split(' ');
-
-        const n: number = parseInt(firstMultipleInput[0], 10);
-
-        const k: number = parseInt(firstMultipleInput[1], 10);
-
-        const A: number[] = readLine().replace(/\s+$/g, '').split(' ').map(ATemp => parseInt(ATemp, 10));
-
-        const B: number[] = readLine().replace(/\s+$/g, '').split(' ').map(BTemp => parseInt(BTemp, 10));
-
-        const result: string = twoArrays(k, A, B);
-
-        ws.write(result + '\n');
-    }
-
-    ws.end();
-}
+console.log(twoArrays(5, [1, 2, 2, 1], [3, 3, 3, 4]));
